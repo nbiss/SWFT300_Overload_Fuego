@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    <link rel="stylesheet" href="GREXLogStyle.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <h1>Create Account</h1>
+
+    <input type="text"
+           id="firstName"
+           placeholder="First Name">
+
+    <input type="text"
+           id="lastName"
+           placeholder="Last Name">
+
+    <input type="email"
+           id="email"
+           placeholder="Email">
+
+    <input type="password"
+           id="password"
+           placeholder="Password">
+
+    <select id="role">
+
+        <option value="">
+            Select Role
+        </option>
+
+        <option value="Athlete">
+            Athlete
+        </option>
+
+        <option value="Coach">
+            Coach
+        </option>
+
+    </select>
+
+    <button onclick="createAccount()">
+        Create Account
+    </button>
+
+    <p class="account-link">
+        Already have an account?
+        <a href="GREXLogin.html">
+            Login
+        </a>
+    </p>
+
+</div>
+
+<script src="createAccount.js"></script>
+
+</body>
+</html>

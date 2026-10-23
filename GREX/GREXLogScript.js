@@ -1,24 +1,65 @@
-// script.js (frontend)
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const role = document.getElementById('role').value;
+async function login(){
 
-  const response = await fetch('/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password, role })
-  });
+    const email =
+        document.getElementById("email").value;
 
-  const result = await response.json();
-  document.getElementById('message').innerText = result.message;
+    const password =
+        document.getElementById("password").value;
 
-  if (result.success) {
-    if (result.role === 'coach') {
-      window.location.href = 'coach-dashboard.html';
-    } else {
-      window.location.href = 'athlete-dashboard.html';
+    const response =
+        await fetch("users.csv");
+
+    const csv =
+        await response.text();
+
+    const lines =
+        csv.split("\n");
+
+    let found = false;
+
+    for(let i=1;i<lines.length;i++){
+
+        const columns =
+            lines[i].split(",");
+
+        if(columns.length < 6)
+            continue;
+
+        const userEmail =
+            columns[3].trim();
+
+        const userPassword =
+            columns[4].trim();
+
+        if(
+            email === userEmail &&
+            password === userPassword
+        ){
+
+            localStorage.setItem(
+                "currentUserID",
+                columns[0]
+            );
+
+            localStorage.setItem(
+                "currentRole",
+                columns[5].trim()
+            );
+
+            found = true;
+
+            window.location.href =
+                "athleteDashboard.html";
+        }
     }
-  }
-});
+
+    if(!found){
+
+        alert(
+          "Account not found. Create an account."
+        );
+
+        window.location.href =
+            "createAccount.html";
+    }
+}
