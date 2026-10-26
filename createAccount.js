@@ -38,5 +38,5 @@ function createAccount(){
     );
 
     window.location.href =
-        "GREXLogin.html";
+        "index.html";
 }

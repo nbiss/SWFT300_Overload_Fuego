@@ -6,7 +6,9 @@
 
 body{
 
-    background-image:url("grexbackground.jpg");
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+        url("grexbackground.jpg");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
