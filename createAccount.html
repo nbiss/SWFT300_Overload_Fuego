@@ -1,116 +1,61 @@
-const USERS_KEY = "grexUsers";
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    <link rel="stylesheet" href="GREXLogStyle.css">
+</head>
+<body>
 
-function getUsers() {
-    return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-}
+<div class="login-container">
 
-function convertToCSVValue(value) {
-    return `"${String(value).replaceAll('"', '""')}"`;
-}
+    <h1>Create Account</h1>
 
-function downloadUsersCSV(users) {
-    const header =
-        "ID,FirstName,LastName,Email,Password,Role";
+    <input type="text"
+           id="firstName"
+           placeholder="First Name">
 
-    const rows = users.map(user => {
-        return [
-            user.id,
-            user.firstName,
-            user.lastName,
-            user.email,
-            user.password,
-            user.role
-        ]
-        .map(convertToCSVValue)
-        .join(",");
-    });
+    <input type="text"
+           id="lastName"
+           placeholder="Last Name">
 
-    const csv = [header, ...rows].join("\n");
+    <input type="email"
+           id="email"
+           placeholder="Email">
 
-    const file = new Blob([csv], {
-        type: "text/csv"
-    });
+    <input type="password"
+           id="password"
+           placeholder="Password">
 
-    const url = URL.createObjectURL(file);
-    const link = document.createElement("a");
+    <select id="role">
 
-    link.href = url;
-    link.download = "users.csv";
-    link.click();
+        <option value="">
+            Select Role
+        </option>
 
-    URL.revokeObjectURL(url);
-}
+        <option value="Athlete">
+            Athlete
+        </option>
 
-function createAccount() {
-    const firstName =
-        document.getElementById("firstName").value.trim();
+        <option value="Coach">
+            Coach
+        </option>
 
-    const lastName =
-        document.getElementById("lastName").value.trim();
+    </select>
 
-    const email =
-        document.getElementById("email").value.trim().toLowerCase();
+    <button onclick="createAccount()">
+        Create Account
+    </button>
 
-    const password =
-        document.getElementById("password").value;
+    <p class="account-link">
+        Already have an account?
+        <a href="index.html">
+            Login
+        </a>
+    </p>
 
-    const role =
-        document.getElementById("role").value;
+</div>
 
-    if (
-        firstName === "" ||
-        lastName === "" ||
-        email === "" ||
-        password === "" ||
-        role === ""
-    ) {
-        alert("Please complete every field.");
-        return;
-    }
+<script src="createAccount.js"></script>
 
-    const users = getUsers();
-
-    const existingUser = users.find(user =>
-        user.email.toLowerCase() === email
-    );
-
-    if (existingUser) {
-        alert("An account with this email already exists.");
-        return;
-    }
-
-    let highestID = 0;
-
-    users.forEach(user => {
-        const userID = Number(user.id);
-
-        if (userID > highestID) {
-            highestID = userID;
-        }
-    });
-
-    const newUser = {
-        id: highestID + 1,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        role: role
-    };
-
-    users.push(newUser);
-
-    localStorage.setItem(
-        USERS_KEY,
-        JSON.stringify(users)
-    );
-
-    downloadUsersCSV(users);
-
-    alert(
-        "Account created successfully. Your ID is "
-        + newUser.id
-    );
-
-    window.location.href = "GREXLogin.html";
-}
+</body>
+</html>

@@ -49,7 +49,7 @@ async function login() {
         );
 
         window.location.href =
-            "CreateAccount.html";
+            "createAccount.html";
 
         return;
     }
