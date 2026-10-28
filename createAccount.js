@@ -50,7 +50,7 @@ function createAccount() {
         JSON.stringify(users)
     );
 
-    alert("Account created. Your ID is " + user.id);
+    alert("Account created. You can now log in.");
 
     window.location.href = "index.html";
 }
