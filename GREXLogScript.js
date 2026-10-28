@@ -1,65 +1,64 @@
-async function login(){
+const USERS_KEY = "grexUsers";
 
+function getSavedUsers() {
+    return JSON.parse(
+        localStorage.getItem(USERS_KEY) || "[]"
+    );
+}
+
+function saveCurrentUser(user) {
+    localStorage.setItem(
+        "currentUserID",
+        user.id
+    );
+
+    localStorage.setItem(
+        "currentRole",
+        user.role
+    );
+
+    localStorage.setItem(
+        "currentUserEmail",
+        user.email
+    );
+}
+
+async function login() {
     const email =
-        document.getElementById("email").value;
+        document.getElementById("email").value.trim().toLowerCase();
 
     const password =
         document.getElementById("password").value;
 
-    const response =
-        await fetch("users.csv");
-
-    const csv =
-        await response.text();
-
-    const lines =
-        csv.split("\n");
-
-    let found = false;
-
-    for(let i=1;i<lines.length;i++){
-
-        const columns =
-            lines[i].split(",");
-
-        if(columns.length < 6)
-            continue;
-
-        const userEmail =
-            columns[3].trim();
-
-        const userPassword =
-            columns[4].trim();
-
-        if(
-            email === userEmail &&
-            password === userPassword
-        ){
-
-            localStorage.setItem(
-                "currentUserID",
-                columns[0]
-            );
-
-            localStorage.setItem(
-                "currentRole",
-                columns[5].trim()
-            );
-
-            found = true;
-
-            window.location.href =
-                "athleteDashboard.html";
-        }
+    if (email === "" || password === "") {
+        alert("Please enter your email and password.");
+        return;
     }
 
-    if(!found){
+    const users = getSavedUsers();
 
+    const user = users.find(currentUser =>
+        currentUser.email.toLowerCase() === email &&
+        currentUser.password === password
+    );
+
+    if (!user) {
         alert(
-          "Account not found. Create an account."
+            "Account not found or password is incorrect. "
+            + "Please create an account."
         );
 
         window.location.href =
-            "createAccount.html";
+            "CreateAccount.html";
+
+        return;
+    }
+
+    saveCurrentUser(user);
+
+    if (user.role.toLowerCase() === "coach") {
+        window.location.href = "GREXDash.html";
+    } else {
+        window.location.href = "GREXDash.html";
     }
 }

@@ -1,42 +1,116 @@
-function createAccount(){
+const USERS_KEY = "grexUsers";
 
-    const user = {
+function getUsers() {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+}
 
-        firstName:
-        document.getElementById(
-            "firstName"
-        ).value,
+function convertToCSVValue(value) {
+    return `"${String(value).replaceAll('"', '""')}"`;
+}
 
-        lastName:
-        document.getElementById(
-            "lastName"
-        ).value,
+function downloadUsersCSV(users) {
+    const header =
+        "ID,FirstName,LastName,Email,Password,Role";
 
-        email:
-        document.getElementById(
-            "email"
-        ).value,
+    const rows = users.map(user => {
+        return [
+            user.id,
+            user.firstName,
+            user.lastName,
+            user.email,
+            user.password,
+            user.role
+        ]
+        .map(convertToCSVValue)
+        .join(",");
+    });
 
-        password:
-        document.getElementById(
-            "password"
-        ).value,
+    const csv = [header, ...rows].join("\n");
 
-        role:
-        document.getElementById(
-            "role"
-        ).value
+    const file = new Blob([csv], {
+        type: "text/csv"
+    });
+
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "users.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function createAccount() {
+    const firstName =
+        document.getElementById("firstName").value.trim();
+
+    const lastName =
+        document.getElementById("lastName").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim().toLowerCase();
+
+    const password =
+        document.getElementById("password").value;
+
+    const role =
+        document.getElementById("role").value;
+
+    if (
+        firstName === "" ||
+        lastName === "" ||
+        email === "" ||
+        password === "" ||
+        role === ""
+    ) {
+        alert("Please complete every field.");
+        return;
+    }
+
+    const users = getUsers();
+
+    const existingUser = users.find(user =>
+        user.email.toLowerCase() === email
+    );
+
+    if (existingUser) {
+        alert("An account with this email already exists.");
+        return;
+    }
+
+    let highestID = 0;
+
+    users.forEach(user => {
+        const userID = Number(user.id);
+
+        if (userID > highestID) {
+            highestID = userID;
+        }
+    });
+
+    const newUser = {
+        id: highestID + 1,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        role: role
     };
 
+    users.push(newUser);
+
     localStorage.setItem(
-        user.email,
-        JSON.stringify(user)
+        USERS_KEY,
+        JSON.stringify(users)
     );
+
+    downloadUsersCSV(users);
 
     alert(
-        "Account Created!"
+        "Account created successfully. Your ID is "
+        + newUser.id
     );
 
-    window.location.href =
-        "index.html";
+    window.location.href = "GREXLogin.html";
 }
