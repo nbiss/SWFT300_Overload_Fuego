@@ -57,8 +57,8 @@ async function login() {
     saveCurrentUser(user);
 
     if (user.role.toLowerCase() === "coach") {
-        window.location.href = "GREXDash.html";
+        window.location.href = "homePage.html";
     } else {
-        window.location.href = "GREXDash.html";
+        window.location.href = "homePage.html";
     }
 }
