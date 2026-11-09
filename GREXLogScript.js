@@ -1,11 +1,5 @@
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbwnrDbFBlwllLcjsHaK1xGiumRjdt-25qbZhyc8MiCiU8_5l5YAYmngiWQYtlZfRE2e/exec";
-
-function saveCurrentUser(user) {
-    localStorage.setItem("currentUserID", user.id || user.email);
-    localStorage.setItem("currentRole", user.role || "user");
-    localStorage.setItem("currentUserEmail", user.email);
-}
+"https://script.google.com/macros/s/AKfycbxnrOE731DzrU2XJscHvhTrgAYmrbyyr5FawU-JYGxmrUw_eLT_nNp4TCRUyNY6-qZh/exec";
 
 async function login() {
     const email = document
@@ -27,6 +21,7 @@ async function login() {
         const response = await fetch(API_URL, {
             method: "POST",
             body: JSON.stringify({
+                action: "login",
                 email: email,
                 password: password
             })
@@ -36,16 +31,28 @@ async function login() {
 
         if (!result.success) {
             alert(result.message);
-            window.location.href = "createAccount.html";
             return;
         }
 
-        saveCurrentUser(result.user);
+        localStorage.setItem(
+            "currentUserID",
+            result.user.id
+        );
+
+        localStorage.setItem(
+            "currentRole",
+            result.user.role
+        );
+
+        localStorage.setItem(
+            "currentUserEmail",
+            result.user.email
+        );
 
         window.location.href = "homePage.html";
 
     } catch (error) {
-        console.error("Login error:", error);
+        console.error(error);
         alert("Unable to connect to the login server.");
     }
 }

@@ -1,8 +1,16 @@
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbwnrDbFBlwllLcjsHaK1xGiumRjdt-25qbZhyc8MiCiU8_5l5YAYmngiWQYtlZfRE2e/exec"";
+"https://script.google.com/macros/s/AKfycbxnrOE731DzrU2XJscHvhTrgAYmrbyyr5FawU-JYGxmrUw_eLT_nNp4TCRUyNY6-qZh/exec";
 
-async function createAccount() {
-    const user = {
+document
+    .getElementById("createAccountForm")
+    .addEventListener("submit", createAccount);
+
+async function createAccount(event) {
+    event.preventDefault();
+
+    const account = {
+        action: "createAccount",
+
         firstName: document
             .getElementById("firstName")
             .value
@@ -29,11 +37,11 @@ async function createAccount() {
     };
 
     if (
-        user.firstName === "" ||
-        user.lastName === "" ||
-        user.email === "" ||
-        user.password === "" ||
-        user.role === ""
+        account.firstName === "" ||
+        account.lastName === "" ||
+        account.email === "" ||
+        account.password === "" ||
+        account.role === ""
     ) {
         alert("Please complete every field.");
         return;
@@ -42,14 +50,7 @@ async function createAccount() {
     try {
         const response = await fetch(API_URL, {
             method: "POST",
-            body: JSON.stringify({
-                action: "createAccount",
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                password: user.password,
-                role: user.role
-            })
+            body: JSON.stringify(account)
         });
 
         const result = await response.json();
@@ -59,11 +60,11 @@ async function createAccount() {
             return;
         }
 
-        alert("Account created. You can now log in.");
+        alert("Account created successfully.");
         window.location.href = "index.html";
 
     } catch (error) {
-        console.error("Account creation error:", error);
+        console.error(error);
         alert("Unable to connect to the account server.");
     }
 }
