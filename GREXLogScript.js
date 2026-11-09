@@ -1,5 +1,5 @@
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxnrOE731DzrU2XJscHvhTrgAYmrbyyr5FawU-JYGxmrUw_eLT_nNp4TCRUyNY6-qZh/exec";
+"https://script.google.com/macros/s/AKfycbzAtsJgs8xiobAeAUkqdb3iyannF2rYVrku-TLUR8ZjW3da3czSZQDsk_mJAwU2lqq7/exec";
 
 async function login() {
     const email = document
