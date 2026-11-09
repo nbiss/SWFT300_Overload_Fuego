@@ -1,5 +1,5 @@
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzAtsJgs8xiobAeAUkqdb3iyannF2rYVrku-TLUR8ZjW3da3czSZQDsk_mJAwU2lqq7/exec";
+"https://script.google.com/macros/s/AKfycbyjUh9I7lgd19Ppgt-VGZiKSUfi8kRfThW-daPe-jkaJTaVZvih66JYoLDNxjITXwBj/exec";
 
 document
     .getElementById("createAccountForm")
