@@ -1,61 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Create Account</title>
+
     <link rel="stylesheet" href="GREXLogStyle.css">
 </head>
+
 <body>
 
-<div class="login-container">
+    <div class="login-container">
 
-    <h1>Create Account</h1>
+        <h1>Create Account</h1>
 
-    <input type="text"
-           id="firstName"
-           placeholder="First Name">
+        <input
+            type="text"
+            id="firstName"
+            placeholder="First Name"
+            required
+        >
 
-    <input type="text"
-           id="lastName"
-           placeholder="Last Name">
+        <input
+            type="text"
+            id="lastName"
+            placeholder="Last Name"
+            required
+        >
 
-    <input type="email"
-           id="email"
-           placeholder="Email">
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+        >
 
-    <input type="password"
-           id="password"
-           placeholder="Password">
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+        >
 
-    <select id="role">
+        <select id="role" required>
+            <option value="">
+                Select Role
+            </option>
 
-        <option value="">
-            Select Role
-        </option>
+            <option value="Athlete">
+                Athlete
+            </option>
 
-        <option value="Athlete">
-            Athlete
-        </option>
+            <option value="Coach">
+                Coach
+            </option>
+        </select>
 
-        <option value="Coach">
-            Coach
-        </option>
+        <button type="button" onclick="createAccount()">
+            Create Account
+        </button>
 
-    </select>
+        <p id="message"></p>
 
-    <button onclick="createAccount()">
-        Create Account
-    </button>
+        <p class="account-link">
+            Already have an account?
+            <a href="index.html">
+                Login
+            </a>
+        </p>
 
-    <p class="account-link">
-        Already have an account?
-        <a href="index.html">
-            Login
-        </a>
-    </p>
+    </div>
 
-</div>
-
-<script src="createAccount.js"></script>
+    <script src="createAccount.js"></script>
 
 </body>
 </html>

@@ -1,23 +1,31 @@
-const USERS_KEY = "grexUsers";
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbwnrDbFBlwllLcjsHaK1xGiumRjdt-25qbZhyc8MiCiU8_5l5YAYmngiWQYtlZfRE2e/exec"";
 
-function getUsers() {
-    try {
-        return JSON.parse(
-            localStorage.getItem(USERS_KEY) || "[]"
-        );
-    } catch (error) {
-        localStorage.removeItem(USERS_KEY);
-        return [];
-    }
-}
-
-function createAccount() {
+async function createAccount() {
     const user = {
-        firstName: document.getElementById("firstName").value.trim(),
-        lastName: document.getElementById("lastName").value.trim(),
-        email: document.getElementById("email").value.trim().toLowerCase(),
-        password: document.getElementById("password").value,
-        role: document.getElementById("role").value
+        firstName: document
+            .getElementById("firstName")
+            .value
+            .trim(),
+
+        lastName: document
+            .getElementById("lastName")
+            .value
+            .trim(),
+
+        email: document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase(),
+
+        password: document
+            .getElementById("password")
+            .value,
+
+        role: document
+            .getElementById("role")
+            .value
     };
 
     if (
@@ -31,26 +39,31 @@ function createAccount() {
         return;
     }
 
-    const users = getUsers();
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                action: "createAccount",
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                password: user.password,
+                role: user.role
+            })
+        });
 
-    const duplicate = users.find(existingUser =>
-        existingUser.email === user.email
-    );
+        const result = await response.json();
 
-    if (duplicate) {
-        alert("This email already has an account.");
-        return;
+        if (!result.success) {
+            alert(result.message);
+            return;
+        }
+
+        alert("Account created. You can now log in.");
+        window.location.href = "index.html";
+
+    } catch (error) {
+        console.error("Account creation error:", error);
+        alert("Unable to connect to the account server.");
     }
-
-    user.id = users.length + 1;
-    users.push(user);
-
-    localStorage.setItem(
-        USERS_KEY,
-        JSON.stringify(users)
-    );
-
-    alert("Account created. You can now log in.");
-
-    window.location.href = "index.html";
 }

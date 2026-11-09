@@ -1,64 +1,51 @@
-const USERS_KEY = "grexUsers";
-
-function getSavedUsers() {
-    return JSON.parse(
-        localStorage.getItem(USERS_KEY) || "[]"
-    );
-}
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbwnrDbFBlwllLcjsHaK1xGiumRjdt-25qbZhyc8MiCiU8_5l5YAYmngiWQYtlZfRE2e/exec";
 
 function saveCurrentUser(user) {
-    localStorage.setItem(
-        "currentUserID",
-        user.id
-    );
-
-    localStorage.setItem(
-        "currentRole",
-        user.role
-    );
-
-    localStorage.setItem(
-        "currentUserEmail",
-        user.email
-    );
+    localStorage.setItem("currentUserID", user.id || user.email);
+    localStorage.setItem("currentRole", user.role || "user");
+    localStorage.setItem("currentUserEmail", user.email);
 }
 
 async function login() {
-    const email =
-        document.getElementById("email").value.trim().toLowerCase();
+    const email = document
+        .getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
 
-    const password =
-        document.getElementById("password").value;
+    const password = document
+        .getElementById("password")
+        .value;
 
     if (email === "" || password === "") {
         alert("Please enter your email and password.");
         return;
     }
 
-    const users = getSavedUsers();
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
 
-    const user = users.find(currentUser =>
-        currentUser.email.toLowerCase() === email &&
-        currentUser.password === password
-    );
+        const result = await response.json();
 
-    if (!user) {
-        alert(
-            "Account not found or password is incorrect. "
-            + "Please create an account."
-        );
+        if (!result.success) {
+            alert(result.message);
+            window.location.href = "createAccount.html";
+            return;
+        }
 
-        window.location.href =
-            "createAccount.html";
+        saveCurrentUser(result.user);
 
-        return;
-    }
-
-    saveCurrentUser(user);
-
-    if (user.role.toLowerCase() === "coach") {
         window.location.href = "homePage.html";
-    } else {
-        window.location.href = "homePage.html";
+
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Unable to connect to the login server.");
     }
 }
