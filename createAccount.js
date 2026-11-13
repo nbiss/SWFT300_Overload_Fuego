@@ -1,5 +1,4 @@
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwBvNM_8kQHzI8gmQk122o4cRP7UVAdjyFeNwHRbUY0JV5WWommfz4wCucmj3hUUvBt/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbze-4ZkLNz0XMEolJ0Y4kMGQtt2tEiQUQCV3GetgJYZMxLBf9srd66GSi_DLNZnFseN/exec";
 
 async function createAccount(event) {
     event.preventDefault();
