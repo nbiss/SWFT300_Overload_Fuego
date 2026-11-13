@@ -43,8 +43,14 @@ async function createAccount(event) {
         window.location.href = "index.html";
 
     } catch (error) {
-        console.error(error);
-        alert("Unable to connect to the account server.");
+        console.error("FULL ERROR:", error);
+        console.error("ERROR MESSAGE:", error.message);
+
+        alert(
+            "Connection error:\n\n" +
+            error.message +
+            "\n\nOpen the browser console for details."
+        );
     }
 }
 
