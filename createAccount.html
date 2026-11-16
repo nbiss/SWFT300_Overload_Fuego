@@ -6,7 +6,58 @@
 
     <title>Create Account</title>
 
-    <link rel="stylesheet" href="GREXLogStyle.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+
+        .login-container {
+            width: 320px;
+            margin: 80px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        input,
+        select,
+        button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .account-link {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,12 +112,69 @@
 
         <p class="account-link">
             Already have an account?
-            <a href="index.html">Login</a>
+            <a href="javascript:history.back()">Login</a>
         </p>
 
     </div>
 
-    <script src="createAccount.js"></script>
+    <script>
+        document
+            .getElementById("createAccountForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const message = document.getElementById("message");
+
+                const account = {
+                    firstName: document
+                        .getElementById("firstName")
+                        .value
+                        .trim(),
+
+                    lastName: document
+                        .getElementById("lastName")
+                        .value
+                        .trim(),
+
+                    email: document
+                        .getElementById("email")
+                        .value
+                        .trim()
+                        .toLowerCase(),
+
+                    password: document
+                        .getElementById("password")
+                        .value,
+
+                    role: document
+                        .getElementById("role")
+                        .value
+                };
+
+                message.textContent = "Creating account...";
+
+                google.script.run
+                    .withSuccessHandler(function(result) {
+                        if (!result.success) {
+                            message.textContent = result.message;
+                            return;
+                        }
+
+                        message.textContent =
+                            "Account created successfully.";
+
+                        document
+                            .getElementById("createAccountForm")
+                            .reset();
+                    })
+                    .withFailureHandler(function(error) {
+                        console.error(error);
+                        message.textContent =
+                            "Server error: " + error.message;
+                    })
+                    .createAccount(account);
+            });
+    </script>
 
 </body>
 </html>
