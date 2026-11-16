@@ -1,32 +1,34 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwUiTGXsoM3A18KdBCQtQwRpbdGsnaUDv9BGoALM9Gfxv1-46fsuxQOggvZmomFdZpC/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbw0TQ4TxTHKiWPGibrgywheQLnmhiP8mc1OhEZDXpFhxYukw8WXC0AJ1Te-XJOoyhih/exec"
 
-async function createAccount(event) {
-    event.preventDefault();
-
-    const account = {
-        action: "createAccount",
-        firstName: document.getElementById("firstName").value.trim(),
-        lastName: document.getElementById("lastName").value.trim(),
-        email: document.getElementById("email").value.trim().toLowerCase(),
-        password: document.getElementById("password").value,
-        role: document.getElementById("role").value
-    };
+async function createAccount() {
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const role = document.getElementsByID("role").value;
 
     if (
-        account.firstName === "" ||
-        account.lastName === "" ||
-        account.email === "" ||
-        account.password === "" ||
-        account.role === ""
+        firstName === "" ||
+        lastName === "" ||
+        email === "" ||
+        password === "" ||
+        role === ""
     ) {
-        alert("Please complete every field.");
+        alert("Please complete all fields.");
         return;
     }
 
     try {
         const response = await fetch(API_URL, {
             method: "POST",
-            body: JSON.stringify(account)
+            body: JSON.stringify({
+                action: "createAccount",
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                role: role
+            })
         });
 
         const responseText = await response.text();
@@ -39,21 +41,11 @@ async function createAccount(event) {
             return;
         }
 
-        alert("Account created successfully.");
-        window.location.href = "index.html";
+        alert("Account created successfully!");
+        window.location.href = "createAccount.html";
 
     } catch (error) {
-        console.error("FULL ERROR:", error);
-        console.error("ERROR MESSAGE:", error.message);
-
-        alert(
-            "Connection error:\n\n" +
-            error.message +
-            "\n\nOpen the browser console for details."
-        );
+        console.error("Create account error:", error);
+        alert("Unable to connect to the server.");
     }
 }
-
-document
-    .getElementById("createAccountForm")
-    .addEventListener("submit", createAccount);
