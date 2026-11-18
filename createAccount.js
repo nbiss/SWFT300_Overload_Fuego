@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbw0TQ4TxTHKiWPGibrgywheQLnmhiP8mc1OhEZDXpFhxYukw8WXC0AJ1Te-XJOoyhih/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbzKrs9yNy5cUizl6QPXh-01MP_NH-T7gdDBIHyTNu_ZzjWrQNyeTzsnuQVzkHaIJQXI/exec"
 
 async function createAccount() {
     const firstName = document.getElementById("firstName").value.trim();
