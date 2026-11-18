@@ -1,11 +1,36 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzA6ymZK6SC2EM54JiEA-ipTBShEA-r6ZhKzmYQKcaK5JaCscy3sZeZqQSZrMBsi3_b/exec"
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbzA6ymZK6SC2EM54JiEA-ipTBShEA-r6ZhKzmYQKcaK5JaCscy3sZeZqQSZrMBsi3_b/exec";
 
-async function createAccount() {
-    const firstName = document.getElementById("firstName").value.trim();
-    const lastName = document.getElementById("lastName").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const role = document.getElementsByID("role").value;
+document
+    .getElementById("createAccountForm")
+    .addEventListener("submit", createAccount);
+
+async function createAccount(event) {
+    event.preventDefault();
+
+    const firstName = document
+        .getElementById("firstName")
+        .value
+        .trim();
+
+    const lastName = document
+        .getElementById("lastName")
+        .value
+        .trim();
+
+    const email = document
+        .getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password = document
+        .getElementById("password")
+        .value;
+
+    const role = document
+        .getElementById("role")
+        .value;
 
     if (
         firstName === "" ||
@@ -32,6 +57,7 @@ async function createAccount() {
         });
 
         const responseText = await response.text();
+
         console.log("Server response:", responseText);
 
         const result = JSON.parse(responseText);
@@ -42,6 +68,7 @@ async function createAccount() {
         }
 
         alert("Account created successfully!");
+
         window.location.href = "index.html";
 
     } catch (error) {
