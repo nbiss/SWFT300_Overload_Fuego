@@ -43,6 +43,7 @@ html, body{
     padding: 7px;
     border: transparent;
     border-top: 1px solid var(--yellow);
+
 }
 .settingsBtn{
     margin-top: auto;
@@ -82,11 +83,9 @@ html, body{
     background-color: var(--sidebarcolor);
     border: var(rgb(75, 75, 75));
     border-radius: 10%;
-    border-style: ; 
     height: 200px; width: 200px;
     color: var(--yellow);
     display: flex; align-items: center; justify-content: center;
     font-size: 2rem;
-    
 }   
 
