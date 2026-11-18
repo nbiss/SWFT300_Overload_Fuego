@@ -42,7 +42,7 @@ async function createAccount() {
         }
 
         alert("Account created successfully!");
-        window.location.href = "createAccount.html";
+        window.location.href = "index.html";
 
     } catch (error) {
         console.error("Create account error:", error);
