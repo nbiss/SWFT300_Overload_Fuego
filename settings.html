@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="homePageStyle.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <div class = "sidebar">
+        <nav class="navbox">
+            <button class="pictureBtn" id ="homePage"><img src="pictures/GrexLogo.png" alt="homePage"></button>
+            
+            <a href="homePage.html" class="navBtn" id ="teams">Teams</a>
+            <a href="calendar.html" class="navBtn">Calendar</a>
+            <a href=""    class="navBtn" id ="inbox">Inbox</a>
+            
+
+            <button class="navBtn settingsBtn" id="settings"><img src="pictures/settingsGear.png" alt=""></button>
+        </nav>
+    </div>
+
+    <div class="pageHeader">Settings</div>
+    
+
+    <div class="settingsBox">
+        <h1>Profile</h1>
+        <div><img src="pictures/profile-blank.png"></div>
+        <div>First Last</div>
+        <div>role</div>
+
+        <div class="details">
+            <div class="detailRow">
+                <dt>First name</dt>
+                <dd id="firstName">Noah</dd>
+            </div>
+            <div class="detailRow">
+                <dt>Last name</dt>
+                <dd id="lastName">Bissmeyer</dd>
+            </div>
+            <div class="detailRow">
+                <dt>Email</dt>
+                <dd id="email">noahBissmeyer@gmail.com</dd>
+            </div>
+            <div class="detailRow">
+                <dt>Role</dt>
+                <dd id="role">Athlete</dd>
+            </div>
+        </div>
+
+        <button class="signOut" id="signOut">Sign out</button>
+
+    </div>
+</body>
+<script src="settings.js"></script>
+</html>

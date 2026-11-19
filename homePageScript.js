@@ -39,15 +39,9 @@ function createAddTeamButton(){
 function initButtons(){
     
     const addTeamsbtn = document.getElementById("addTeam");
-    const settingsBtn = document.getElementById("settings");
 
     addTeamsbtn.addEventListener("click", ()=>{
         alert("add teams")
-    });
-
-
-    settingsBtn.addEventListener("click" , ()=>{
-    alert("settings")
     });
 
 
