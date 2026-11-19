@@ -1,22 +1,22 @@
 window.addEventListener('DOMContentLoaded', ()=>{
-    let teamNameArray = ["Lax", "baseball", "soccer"];
-    inializeTeams(teamNameArray);
+    let teamNameMap = {"lax":"lax Link", "baseball":"base Link","soccer":"soc link"};
+    inializeTeams(teamNameMap);
     initButtons();
     
 })
 
 
 //initalize team boxes for homepage
-function inializeTeams(teamNameArray){
+function inializeTeams(teamNameMap){
     const contentBox = document.getElementById('pageContent');
-    for (let i = 0; i < teamNameArray.length; i++) {
-        const cell = document.createElement("div");
+    const keys = Object.keys(teamNameMap);
+    for (let i = 0; i < keys.length; i++) {
+        const cell = document.createElement('a');
+        cell.textContent = keys[i]
         cell.dataset.index = i;
         cell.classList.add("teamBox");
-        cell.textContent = teamNameArray[i];
 
         contentBox.appendChild(cell);
-
     }
     const but = createAddTeamButton();
     contentBox.appendChild(but)
@@ -38,40 +38,16 @@ function createAddTeamButton(){
 // button advent listeners //
 function initButtons(){
     
-    const dashBoardBtn = document.getElementById("dashBoard");
-    const calendarBtn = document.getElementById("calendar");
-    const inboxBtn = document.getElementById("inbox");
-    const teamsBtn = document.getElementById("teams");
     const addTeamsbtn = document.getElementById("addTeam");
     const settingsBtn = document.getElementById("settings");
-    const homeBtn = document.getElementById("homePage");
 
     addTeamsbtn.addEventListener("click", ()=>{
         alert("add teams")
     });
 
-    dashBoardBtn.addEventListener("click" , ()=>{
-    alert("dashboard")
-    });
-
-    calendarBtn.addEventListener("click" , ()=>{
-    alert("calendar")
-    });
-
-    inboxBtn.addEventListener("click" , ()=>{
-    alert("inbox")
-    });
-
-    teamsBtn.addEventListener("click" , ()=>{
-    alert("teams")
-    });
 
     settingsBtn.addEventListener("click" , ()=>{
     alert("settings")
-    });
-
-    homeBtn.addEventListener("click" , ()=>{
-    alert("home")
     });
 
 

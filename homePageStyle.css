@@ -1,5 +1,5 @@
 :root{
-    --sidebarcolor: #220060ee;
+    --purple: #15003d;
     --yellow: rgb(239, 228, 129);
     --sideBarWidth: 180px;
 }
@@ -9,12 +9,13 @@ html, body{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
    
 }
 
 .sidebar{
-    position: sticky; align-self: flex-start;
-    background-color: var(--sidebarcolor);
+    position: fixed; align-self: flex-start;
+    background-color: var(--purple);
     width: var(--sideBarWidth); height: 100%; flex-shrink: 0;
     padding: 10px;
     box-sizing: border-box;
@@ -43,6 +44,9 @@ html, body{
     padding: 7px;
     border: transparent;
     border-top: 1px solid var(--yellow);
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
 
 }
 .settingsBtn{
@@ -55,6 +59,8 @@ html, body{
 }
 
 .pageContent{
+    margin-left: var(--sideBarWidth);
+    margin-top: 6.5%;
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -63,13 +69,16 @@ html, body{
 
 }
 .pageHeader{
+    position: fixed;
+    margin-left: var(--sideBarWidth);
     color: var(--yellow);
     padding: 20px;
     font-size: 2.5rem;
     width: calc(100vw - (var(--sideBarWidth) + 40px));
     height: 7.5%;
-    background-color: var(--sidebarcolor);
-    margin: 0;
+    background-color: var(--purple);
+    display: flex; align-items:center; justify-content: flex-start;
+    text-align: center;
 }
 
 .pageContent h2{
@@ -80,12 +89,20 @@ html, body{
    
 }
 .teamBox{
-    background-color: var(--sidebarcolor);
-    border: var(rgb(75, 75, 75));
+    background-color: var(--purple);
     border-radius: 10%;
     height: 200px; width: 200px;
     color: var(--yellow);
-    display: flex; align-items: center; justify-content: center;
     font-size: 2rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border-style: groove;
+    border-color: grey;
+    border-width: 3px;
 }   
-
+.teamBox img{
+    height: 50%;
+    width: 50%;
+}
