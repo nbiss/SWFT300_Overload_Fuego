@@ -7,6 +7,7 @@
     flex-direction: column;
     padding: 10%;
     height:min-content;
+    gap: 4px;
 }
 .settingsBox img{
     height: 100px; width: 100px;
@@ -38,4 +39,12 @@
     padding: 4px;
     font-weight: 500;
     text-align: right;
+}
+.roleBox{
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #404040;
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
 }
